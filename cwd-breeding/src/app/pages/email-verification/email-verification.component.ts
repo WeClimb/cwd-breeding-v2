@@ -37,4 +37,8 @@ export class EmailVerificationComponent {
       this.router.navigate(['/login']);
     });
   }
+
+  proceedToSite() {
+    this.router.navigate(['/home']);
+  }
 }

@@ -11,9 +11,36 @@
         width: 200px;    
     }
 
+    .password-rules-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;  // Creates a 2x2 grid
+      
+        .password-rule {
+          display: flex;
+          align-items: center;
+      
+          p {
+            margin-left: 8px;
+            font-size: 0.7rem;
+          }
+      
+          .valid {
+            color: #4caf50;  // Green for valid rules
+            padding: 7px;
+          }
+      
+          .invalid {
+            color: #f44336;  // Red for invalid rules
+            padding: 7px;
+          }
+        }
+      }
+      
+      
+
     mat-form-field {
         width: 100%;
-        margin-bottom: 20px;
+        margin-top: 5px;
       }
       
       button {

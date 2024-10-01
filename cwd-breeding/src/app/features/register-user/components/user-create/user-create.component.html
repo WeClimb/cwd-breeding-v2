@@ -1,6 +1,9 @@
 <div class="user-register-form-container">
   <form [formGroup]="userCreateForm" (ngSubmit)="onSubmit()">
     <h1 class="header-title">Create an Account</h1>
+
+ 
+
     <!-- Name Input -->
     <mat-form-field appearance="outline">
       <mat-label>Name</mat-label>
@@ -15,16 +18,79 @@
       <mat-error *ngIf="userCreateForm.controls.email.invalid">Please enter a valid email</mat-error>
     </mat-form-field>
 
-    <!-- Password Input -->
+    <!-- Password Input with View/Hide -->
     <mat-form-field appearance="outline">
       <mat-label>Password</mat-label>
-      <input matInput formControlName="password" required type="password">
-      <mat-error *ngIf="userCreateForm.controls.password.invalid">
-        Password must be at least 6 characters
+      <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required>
+      <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-error *ngIf="userCreateForm.controls.password.hasError('invalidPassword')">
+        Password must meet the required rules.
       </mat-error>
     </mat-form-field>
 
-    <!-- Phone Number Input -->
+    <!-- Confirm Password Input with View/Hide -->
+    <mat-form-field appearance="outline">
+      <mat-label>Confirm Password</mat-label>
+      <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword" required>
+      <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide confirm password'" [attr.aria-pressed]="hideConfirmPassword">
+        <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-error *ngIf="userCreateForm.hasError('passwordMismatch')">
+        Passwords do not match.
+      </mat-error>
+    </mat-form-field>
+
+    <div class="password-rules-grid">
+      <!-- Uppercase Rule -->
+      <div class="password-rule">
+        <mat-icon [ngClass]="{'valid': hasUpperCase(), 'invalid': !hasUpperCase()}">
+          {{ hasUpperCase() ? 'done' : 'close' }}
+        </mat-icon>
+        <p>At least one uppercase letter</p>
+      </div>
+    
+      <!-- Lowercase Rule -->
+      <div class="password-rule">
+        <mat-icon [ngClass]="{'valid': hasLowerCase(), 'invalid': !hasLowerCase()}">
+          {{ hasLowerCase() ? 'done' : 'close' }}
+        </mat-icon>
+        <p>At least one lowercase letter</p>
+      </div>
+    
+      <!-- Number Rule -->
+      <div class="password-rule">
+        <mat-icon [ngClass]="{'valid': hasNumber(), 'invalid': !hasNumber()}">
+          {{ hasNumber() ? 'done' : 'close' }}
+        </mat-icon>
+        <p>At least one number</p>
+      </div>
+    
+      <!-- Special Character Rule -->
+      <div class="password-rule">
+        <mat-icon [ngClass]="{'valid': hasSpecialChar(), 'invalid': !hasSpecialChar()}">
+          {{ hasSpecialChar() ? 'done' : 'close' }}
+        </mat-icon>
+        <p>At least one special character</p>
+      </div>
+    
+      <!-- Length Rule -->
+      <div class="password-rule">
+        <mat-icon [ngClass]="{'valid': hasValidLength(), 'invalid': !hasValidLength()}">
+          {{ hasValidLength() ? 'done' : 'close' }}
+        </mat-icon>
+        <p>At least 10 characters</p>
+      </div>
+
+      <div class="password-rule">
+        <mat-icon [ngClass]="{'valid': matchPasswords(), 'invalid': !matchPasswords()}">
+          {{ matchPasswords() ? 'done' : 'close' }}
+        </mat-icon>
+        <p>Passwords Match</p>
+      </div>
+    </div>
+    
     <mat-form-field appearance="outline">
       <mat-label>Phone Number</mat-label>
       <input matInput formControlName="phoneNumber" type="tel" appPhoneMask>
@@ -39,7 +105,7 @@
       <span>OR</span>
       <button mat-stroked-button color="warn" class="google-button" (click)="onGoogleSignIn()">
         <div class="google-btn-label-container">
-          <img *ngIf="googleIconUrl"  [src]="googleIconUrl"  alt="Google Icon">
+          <img *ngIf="googleIconUrl" [src]="googleIconUrl" alt="Google Icon">
           <p>Sign Up with Google</p>
         </div>
       </button>

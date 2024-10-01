@@ -12,11 +12,11 @@ import {
 import { Router } from '@angular/router';
 import { map, Observable, of } from 'rxjs';
 import { UserProfile } from '../models/user/user-profile';
-import { UserStatus } from '../constants/user-status.enum';
 import { UserCreateModel } from '../models/user/user-create-model';
 import { Roles } from '../constants/roles.enum';
 import { UserProfileService } from './user-profile.service';
 import { inject, Injectable } from '@angular/core';
+import { Status } from '../constants/status.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -45,7 +45,7 @@ export class AuthService {
               role: userCreateModel.role,
               uid: user.uid,
               id: user.uid,
-              status: UserStatus.ACTIVE,
+              status: Status.ACTIVE,
               createdAt: new Date(),
               updatedAt: new Date(),
             };
@@ -77,7 +77,7 @@ export class AuthService {
           role: Roles.USER,
           uid: user.uid,
           id: user.uid,
-          status: UserStatus.ACTIVE,
+          status: Status.ACTIVE,
           createdAt: new Date(),
           updatedAt: new Date(),
         };

@@ -10,4 +10,11 @@ export class RanchService extends FirestoreService<RanchModel> {
   constructor() {
     super(CollectionPaths.RANCHES); // Specify the Firestore collection path
   }
+
+  override postDelete(id: string): void {
+    //delete from subcollections
+  }
+
 }
+
+

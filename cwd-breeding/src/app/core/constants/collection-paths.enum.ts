@@ -1,4 +1,5 @@
 export enum CollectionPaths {
     DEER = 'deer',
-    RANCHES = 'ranches'
+    RANCHES = 'ranches',
+    USERS = 'users',
 }

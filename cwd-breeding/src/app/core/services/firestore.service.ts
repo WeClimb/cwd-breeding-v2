@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData, doc, getDoc, updateDoc, deleteDoc, CollectionReference, DocumentReference } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, collectionData, doc, getDoc, updateDoc, deleteDoc, CollectionReference, DocumentReference, runTransaction, Transaction } from '@angular/fire/firestore';
 import { Observable, from } from 'rxjs';
 import { BaseDataModel } from '../models/base-model';
 import { CollectionPaths } from '../constants/collection-paths.enum';
@@ -69,11 +69,31 @@ export abstract class FirestoreService<T extends BaseDataModel> {
 
   private async deleteDocumentPromise(id: string): Promise<void> {
     const docRef = doc(this.firestore, `${this.collectionPath}/${id}`);
-    return deleteDoc(docRef);
+  
+    try {
+      await runTransaction(this.firestore, async (transaction: Transaction) => {
+
+        const docSnapshot = await transaction.get(docRef);
+        if (!docSnapshot.exists()) {
+          throw new Error('Document does not exist!');
+        }
+
+          transaction.delete(docRef);
+      });
+  
+      this.postDelete(id);
+
+    } catch (error) {
+        console.error('Transaction failed: ', error);
+        throw error;
+    }
   }
 
-  // Get the reference to the collection
   private getCollection(): CollectionReference<T> {
     return collection(this.firestore, this.collectionPath) as CollectionReference<T>;
   }
+
+  private deleteSubCollectionRef(): void {}
+
+  postDelete(id: string): void {}
 }

@@ -1,15 +1,16 @@
 .sign-in-container {
     max-width: 400px;
     margin: 0 auto;
+    margin-top: 100px;
+    margin-bottom: 100px;
     padding: 20px;
-    background-color: #f7f7f7;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-  
+
   mat-form-field {
     width: 100%;
     margin-bottom: 20px;
+    margin-top: 20px;
   }
   
   button {
@@ -35,5 +36,6 @@
     display: flex; 
     justify-content: space-around; 
     width: 200px;    
+  }
 }
   

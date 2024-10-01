@@ -1,5 +1,97 @@
-<app-user-create 
-    [showGoogleSignIn]="true"
-    (formSubmitted)="handleFormSubmit($event)"
-    (googleSignIn)="handleGoogleSignIn()">
-</app-user-create>
+<div class="register-stepper-container">
+    <!-- Page Header -->
+    <header class="page-header">
+      <h1 class="page-header-title">Sign Up and Get Started</h1>
+      <mat-divider></mat-divider>
+      <p class="page-header-subtitle">Create an account to manage your ranch, verify your email, and set up your first deer.</p>
+    </header>
+  
+    <!-- Stepper -->
+    <mat-stepper class="register-stepper" [orientation]="(stepperOrientation | async)!">
+      
+      <!-- Step 1: Create Account -->
+      <mat-step class="step" [stepControl]="firstFormGroup" label="Let's get started!">
+        <section class="step-description">
+          <h2 class="stepper-header-title">Create your User Account </h2>
+          <p>This is where it all beigns, create a user account to begin managing your herd.</p>
+        </section>
+        <app-user-create 
+          [showGoogleSignIn]="true"
+          (formSubmitted)="handleFormSubmit($event)"
+          (googleSignIn)="handleGoogleSignIn()">
+        </app-user-create>
+      </mat-step>
+  
+      <!-- Step 2: Verify Email -->
+      <mat-step class="step" [stepControl]="secondFormGroup" label="Verify Email">
+        <section class="step-description">
+          <h2>Step 2: Verify Your Email</h2>
+          <p>We’ve sent a verification link to your email. Please confirm your email address to continue.</p>
+        </section>
+        <form [formGroup]="secondFormGroup">
+          <mat-form-field>
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
+          </mat-form-field>
+  
+          <div class="step-buttons">
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+  
+      <!-- Step 3: Create Ranch -->
+      <mat-step class="step" [stepControl]="thirdFormGroup" label="Create Ranch">
+        <section class="step-description">
+          <h2>Step 3: Set Up Your Ranch</h2>
+          <p>Enter your ranch details to get started with managing your operations.</p>
+        </section>
+        <form [formGroup]="thirdFormGroup">
+          <mat-form-field>
+            <mat-label>Phone number</mat-label>
+            <input matInput formControlName="thirdCtrl" placeholder="Ex. 12345678" required>
+          </mat-form-field>
+  
+          <div class="step-buttons">
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+  
+      <!-- Step 4: Create First Deer -->
+      <mat-step class="step" [stepControl]="thirdFormGroup" label="Create First Deer">
+        <section class="step-description">
+          <h2>Step 4: Add Your First Deer</h2>
+          <p>Add your first deer to your ranch to begin managing them.</p>
+        </section>
+        <form [formGroup]="thirdFormGroup">
+          <mat-form-field>
+            <mat-label>Phone number</mat-label>
+            <input matInput formControlName="thirdCtrl" placeholder="Ex. 12345678" required>
+          </mat-form-field>
+  
+          <div class="step-buttons">
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+  
+      <!-- Final Step: Completion -->
+      <mat-step class="step">
+        <ng-template matStepLabel>Done!</ng-template>
+        <section class="step-description">
+          <h2>Congratulations!</h2>
+          <p>You’ve successfully completed the sign-up process and set up your ranch.</p>
+        </section>
+        <div class="step-buttons">
+          <button mat-button matStepperPrevious>Back</button>
+        </div>
+      </mat-step>
+    </mat-stepper>
+  </div>
+  
+  <app-footer></app-footer>
+  

@@ -1,0 +1,105 @@
+.register-stepper-container {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 100px;
+    padding-bottom: 40px;  // Extra spacing for footer to appear nice
+
+    .page-header {
+         .page-header-title {
+            font-weight: 400;
+         }
+
+         .page-header-subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+         }
+    }
+  
+    .register-stepper {
+      background-color: #fff;  // White background for the stepper
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  // Soft shadow for depth
+      border-radius: 8px;  // Rounded corners
+      padding: 20px;
+
+      .stepper-header-title {
+        font-weight: 300;
+      }
+  
+      .step {
+        padding: 20px;
+        
+        /* Style the buttons */
+        .step-buttons {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 20px;
+          
+          button {
+            padding: 10px 20px;
+          }
+        }
+        
+        /* Style each step description */
+        .step-description {
+          text-align: center;
+          margin-bottom: 20px;
+  
+          h2 {
+            font-size: 1.8rem;
+            color: #1976d2;  // Primary color
+            margin-bottom: 10px;
+          }
+  
+          p {
+            font-size: 1.1rem;
+            color: #555;  // Subtle text color
+          }
+        }
+  
+        mat-form-field {
+          width: 100%;  // Ensure the form fields take full width
+          margin-top: 15px;
+        }
+      }
+    }
+  }
+  
+  /* Specific tweaks for mobile responsiveness */
+  @media (max-width: 768px) {
+    .register-stepper-container {
+      width: 95%;  // Increase width on smaller screens
+      margin-top: 60px;
+
+      .page-header {
+        padding-left: 20px;
+        padding-right: 20px;
+        text-align: center;
+   }
+  
+      .register-stepper {
+        padding: 10px;  // Reduce padding on smaller screens
+  
+        .step {
+          padding: 10px;
+  
+          .step-buttons {
+            flex-direction: column;  // Stack buttons vertically on mobile
+            button {
+              margin-bottom: 10px;  // Add space between buttons
+            }
+          }
+  
+          .step-description {
+            h2 {
+              font-size: 1.5rem;
+            }
+  
+            p {
+              font-size: 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+  

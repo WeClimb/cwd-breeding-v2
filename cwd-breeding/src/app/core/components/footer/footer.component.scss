@@ -1,9 +1,15 @@
 .footer {
-    background-color: #222;
+    background-color: var(--sys-inverse-surface);
     color: #fff;
     padding: 20px;
     text-align: center;
     
+    .footer-logo {
+        height: 50px;
+        width: auto;
+        filter: invert(1);  // This inverts the colors
+      }
+      
 
     .footer-content {
       display: flex;

@@ -2,14 +2,16 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
 import { SignInModel } from '../../features/sign-in/models/sign-in-model';
 import { SignInComponent } from '../../features/sign-in/components/sign-in/sign-in.component';
+import { FooterComponent } from "../../core/components/footer/footer.component";
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
-    SignInComponent
-  ],
+    SignInComponent,
+    FooterComponent
+],
   templateUrl: './login.component.html',
 })
 export class LoginComponent {

@@ -1,4 +1,3 @@
-import { Injectable, inject } from '@angular/core';
 import {
   Auth,
   signInWithEmailAndPassword,
@@ -6,10 +5,10 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   fetchSignInMethodsForEmail,
+  sendEmailVerification,
   User,
   UserCredential,
 } from '@angular/fire/auth';
-import { Firestore, doc, setDoc } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { map, Observable, of } from 'rxjs';
 import { UserProfile } from '../models/user/user-profile';
@@ -17,17 +16,17 @@ import { UserStatus } from '../constants/user-status.enum';
 import { UserCreateModel } from '../models/user/user-create-model';
 import { Roles } from '../constants/roles.enum';
 import { UserProfileService } from './user-profile.service';
+import { inject, Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private readonly auth: Auth = inject(Auth);
-  private readonly firestore: Firestore = inject(Firestore);
   private readonly router = inject(Router);
   private readonly userProfileService = inject(UserProfileService);
 
-  // Sign Up with Email and Password
+  // Sign Up with Email and Password and send email verification
   signUp(userCreateModel: UserCreateModel): Promise<void> {
     return fetchSignInMethodsForEmail(this.auth, userCreateModel.email)
       .then((methods: string[]) => {
@@ -50,7 +49,12 @@ export class AuthService {
               createdAt: new Date(),
               updatedAt: new Date(),
             };
-            return this.createUserProfile(userProfile);
+            // Create user profile in Firestore
+            return this.createUserProfile(userProfile)
+              .then(() => {
+                // Send email verification
+                return sendEmailVerification(user);
+              });
           });
       })
       .catch((error) => {
@@ -59,7 +63,7 @@ export class AuthService {
       });
   }
 
-  // Google sign-up/login with account exists handling
+  // Google sign-up/login with account exists handling and email verification
   signUpWithGoogle(): Promise<void> {
     const provider = new GoogleAuthProvider();
     
@@ -77,7 +81,15 @@ export class AuthService {
           createdAt: new Date(),
           updatedAt: new Date(),
         };
-        return this.createUserProfile(userProfile);
+        // Create user profile and send email verification if not verified
+        return this.createUserProfile(userProfile)
+          .then(() => {
+            if (!user.emailVerified) {
+              return sendEmailVerification(user);
+            } else {
+              return Promise.resolve();
+            }
+          });
       })
       .catch(async (error) => {
         if (error.code === 'auth/account-exists-with-different-credential') {
@@ -101,16 +113,38 @@ export class AuthService {
       });
   }
 
-  // Log In with Email and Password
+  // Log In with Email and Password and check if the email is verified
   login(email: string, password: string): Promise<void> {
     return signInWithEmailAndPassword(this.auth, email, password)
       .then((userCredential: UserCredential) => {
-        console.log('User logged in:', userCredential.user);
+        const user = userCredential.user;
+        if (user.emailVerified) {
+          console.log('User logged in successfully');
+        } else {
+          console.warn('Email not verified. Please check your inbox and verify your email.');
+          this.router.navigate(['/email-verification']);
+        }
       })
       .catch((error) => {
         console.error('Error during login:', error);
         throw error;
       });
+  }
+
+  // Resend email verification
+  resendEmailVerification(): Promise<void> {
+    const user = this.auth.currentUser;
+    if (user && !user.emailVerified) {
+      return sendEmailVerification(user)
+        .then(() => {
+          console.log('Verification email resent');
+        })
+        .catch((error) => {
+          console.error('Error resending verification email:', error);
+        });
+    } else {
+      return Promise.reject('No user logged in or email already verified.');
+    }
   }
 
   // Log Out

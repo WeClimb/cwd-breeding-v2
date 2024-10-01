@@ -1,0 +1,18 @@
+<div class="email-verification-container">
+    <div class="verification-card">
+      <h1 class="header-title">Verify Your Email</h1>
+      <p>
+        Your email address has not been verified yet. Please check your inbox and click the verification link to proceed.
+      </p>
+    
+      <div class="actions">
+        <button (click)="resendVerificationEmail()" mat-stroked-button color="secondary">
+          Resend Email
+        </button>
+        <button (click)="logout()" mat-flat-button color="warn">
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,48 @@
+.email-verification-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);  // Modern subtle gradient
+    
+    .verification-card {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);  // Modern shadow for card
+      max-width: 400px;
+      text-align: center;
+  
+      h1.header-title {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        color: #3a3b3c;
+        font-weight: 300;  // Slightly lighter modern font weight
+      }
+  
+      p {
+        font-size: 1rem;
+        color: #606770;
+        margin-bottom: 30px;
+      }
+  
+      .actions {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+  
+        button {
+          padding: 10px 0;
+          font-size: 1rem;
+          border-radius: 8px;  // Slight rounding for modern look
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  // Subtle button shadow for depth
+          transition: box-shadow 0.3s ease;  // Smooth hover transition
+  
+          &:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);  // More depth on hover
+          }
+        }
+      }
+    }
+  }
+  

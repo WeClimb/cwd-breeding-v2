@@ -55,4 +55,15 @@ export const routes: Routes = [
             ]
         }
     },
+    {
+        path: 'email-verification',
+        loadComponent: () => import('./pages/email-verification/email-verification.component').then(mod => mod.EmailVerificationComponent),
+        data: {
+            title: 'Email Verification | CWD-Breeding',
+            meta: [
+                { name: 'description', content: '' },
+                { name: 'keywords', content: '' }
+            ]
+        }
+    },
 ];

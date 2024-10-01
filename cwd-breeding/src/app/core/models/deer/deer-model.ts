@@ -1,27 +1,24 @@
+import { Sex } from "../../constants/sex.enum";
 import { BaseDataModel } from "../base-model";
+import { DenialModel } from "./denial-model";
+import { DeerImage } from "./deer-image";
 import { SubscriptionModel } from "./subscription-model";
 
+export type DeerImages = [] | [DeerImage] | [DeerImage, DeerImage] | [DeerImage, DeerImage, DeerImage];
+
 export interface DeerModel extends BaseDataModel {
-    name: string;  
+    name: string;
+    profileImageData: DeerImage
     nadr: string;  
     dob: Date;
     age: number; 
     gebv: number;
     codon: string;
-    sciScore: number;
-    isApproved: boolean;
-    isPaid: boolean;
-    paidDate?: Date;
-    semenAvailable: boolean;
-    semenCost?: number;
     ranchId: string;
-    profileImage?: string;
-    videoLink?: string;
-    denialReason?: string;
-    ageOfBuckDisplayed?: number;
-    description?: string;
-    sex: 'buck' | 'doe';
-    embryosAvailable: boolean;
-    embryosCost?: number;
+    videoLink: string;
+    description: string;
+    sex: Sex;
+    denialReason: DenialModel | null;
+    images: DeerImages;
     subsciptionHistory: SubscriptionModel[];
 }

@@ -1,3 +1,4 @@
+import { Roles } from "../../constants/roles.enum";
 import { BaseDataModel } from "../base-model";
 
 export interface UserProfile extends BaseDataModel {
@@ -5,5 +6,5 @@ export interface UserProfile extends BaseDataModel {
     name: string;
     email: string;
     phoneNumber: string | null;
-    role: string;
+    role: Roles;
 }

@@ -1,1 +1,5 @@
-<p>register works!</p>
+<app-user-create 
+[showGoogleSignIn]="true"
+(formSubmitted)="handleFormSubmit($event)"
+(googleSignIn)="handleGoogleSignIn()">
+</app-user-create>

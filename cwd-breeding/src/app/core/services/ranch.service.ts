@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FirestoreService } from './firestore.service';
-import { RanchModel } from '../models/ranch';
 import { CollectionPaths } from '../constants/collection-paths.enum';
+import { RanchModel } from '../models/ranch/ranch';
 
 @Injectable({
   providedIn: 'root'

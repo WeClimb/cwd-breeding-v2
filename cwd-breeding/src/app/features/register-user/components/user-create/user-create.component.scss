@@ -1,0 +1,52 @@
+.user-register-form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;;
+
+    .google-btn-label-container {
+        display: flex; 
+        justify-content: space-around; 
+        width: 200px;    
+    }
+
+    mat-form-field {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      
+      button {
+        width: 100%;
+        margin-top: 10px;
+      }
+      
+      .divider {
+        text-align: center;
+        margin: 20px 0;
+        font-weight: bold;
+        color: #777;
+      }
+      
+      .divider span {
+        padding: 0 10px;
+        position: relative;
+        top: -10px;
+      }
+      
+      .google-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        font-weight: bold;
+      }
+      
+      mat-icon {
+        width: 24px;
+        height: 24px;
+      }
+  }
+  
+
+  

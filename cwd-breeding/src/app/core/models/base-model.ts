@@ -6,4 +6,3 @@ export interface BaseDataModel {
     updatedAt: Date;
     status: UserStatus;
 }
-  

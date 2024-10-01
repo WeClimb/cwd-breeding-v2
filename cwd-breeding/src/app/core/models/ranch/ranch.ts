@@ -1,4 +1,4 @@
-import { BaseDataModel } from "./base-model";
+import { BaseDataModel } from "../base-model";
 
 export interface RanchModel extends BaseDataModel {
     name: string;

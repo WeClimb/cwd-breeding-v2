@@ -1,0 +1,38 @@
+<div class="sign-in-container">
+    <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+  
+      <!-- Email Input -->
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" required type="email">
+        <mat-error *ngIf="signInForm.controls.email.invalid">Please enter a valid email</mat-error>
+      </mat-form-field>
+  
+      <!-- Password Input -->
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" required type="password">
+        <mat-error *ngIf="signInForm.controls.password.invalid">
+          Password must be at least 6 characters
+        </mat-error>
+      </mat-form-field>
+  
+      <!-- Submit Button -->
+      <button mat-raised-button color="primary" type="submit" [disabled]="signInForm.invalid">
+        Sign In
+      </button>
+  
+      <!-- Google Sign-In Button -->
+      <div *ngIf="showGoogleSignIn" class="divider">
+        <span>OR</span>
+        <button mat-stroked-button color="warn" class="google-button" (click)="onGoogleSignIn()">
+            <div class="google-btn-label-container">
+                <img *ngIf="googleIconUrl"  [src]="googleIconUrl"  alt="Google Icon">
+                <p>Sign in with Google</p>
+            </div>
+        </button>
+      </div>
+  
+    </form>
+  </div>
+  

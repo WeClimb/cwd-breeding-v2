@@ -1,0 +1,39 @@
+.footer {
+    background-color: #222;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+  
+      @media (max-width: 768px) {
+        flex-direction: column;
+      }
+    }
+  
+    p {
+      margin: 0;
+    }
+  
+    .footer-nav {
+      a {
+        color: #fff;
+        text-decoration: none;
+        margin: 0 15px;
+  
+        &:hover {
+          text-decoration: underline;
+        }
+  
+        @media (max-width: 768px) {
+          margin: 10px 0;
+        }
+      }
+    }
+  }
+  

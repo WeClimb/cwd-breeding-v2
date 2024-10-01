@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
-import { SnackbarService } from '../../core/services/snackbar.service';
+import { SnackbarService } from '../../core/services/snackbar-service.service';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({

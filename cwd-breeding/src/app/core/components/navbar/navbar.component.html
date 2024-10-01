@@ -1,0 +1,32 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <!-- Hamburger Menu Button for Mobile Screens -->
+      <button mat-icon-button color="accent" (click)="toggleSidenav()" class="mobile-menu-button">
+        <mat-icon>menu</mat-icon>
+      </button>
+  
+      <!-- Centered Logo -->
+      <img routerLink="/" src="https://firebasestorage.googleapis.com/v0/b/cwd-breeding.appspot.com/o/logos%2FCWDbreeding-Logo-Orange.png?alt=media&token=fba5f3ae-d67e-4142-91ed-7594cbc098c3" alt="Logo" class="nav-bar-logo" loading="eager">
+  
+      <!-- Navigation Links for Larger Screens -->
+      <div class="nav-links">
+        <a *ngFor="let link of navLinks" mat-button [routerLink]="link.path" routerLinkActive="active-top-nav">
+          {{ link.label }}
+        </a>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav mode="over" class="sidenav">
+      <mat-nav-list class="nav-list">
+        <a *ngFor="let link of navLinks" mat-list-item [routerLink]="link.path" routerLinkActive="active-side-nav">
+          {{ link.label }}
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  

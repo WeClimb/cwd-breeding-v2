@@ -21,4 +21,5 @@ export interface DeerModel extends BaseDataModel {
     denialReason: DenialModel | null;
     images: DeerImages;
     subsciptionHistory: SubscriptionModel[];
+    lineage: LineageModel
 }

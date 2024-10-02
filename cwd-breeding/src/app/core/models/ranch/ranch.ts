@@ -1,4 +1,5 @@
 import { BaseDataModel } from "../base-model";
+import { SocialsModel } from "./socials-model";
 
 export interface RanchModel extends BaseDataModel {
     name: string;
@@ -11,4 +12,10 @@ export interface RanchModel extends BaseDataModel {
     phoneNumber: string;
     email: string;
     stripeId: string | null;
+    userId: string;
+    deer: string[];
+    ranchProfileDescription: string;
+    socials: SocialsModel;
+    coverPhoto: string;
+    profileImage: string;
 }

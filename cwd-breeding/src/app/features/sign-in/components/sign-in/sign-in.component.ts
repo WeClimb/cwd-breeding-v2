@@ -8,6 +8,8 @@ import { CommonModule } from '@angular/common';
 import { getStorage, ref, getDownloadURL } from '@angular/fire/storage';
 import { SignInModel } from '../../models/sign-in-model';
 import { SignInFormModel } from '../../models/sign-in-form-model';
+import { MatDividerModule } from '@angular/material/divider';
+import {MatCardModule} from '@angular/material/card';
 
 
 @Component({
@@ -20,6 +22,8 @@ import { SignInFormModel } from '../../models/sign-in-form-model';
     MatButtonModule,
     MatIconModule,
     ReactiveFormsModule,
+    MatDividerModule,
+    MatCardModule,
   ],
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss'],

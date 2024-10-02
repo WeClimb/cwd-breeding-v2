@@ -1,39 +1,58 @@
 <div class="sign-in-container">
-    <h1 class="header-title">Sign In</h1>
+    <div class="left-container">
+      
+      <div class="register-info">
+        <mat-card>
+          <img class="logo" mat-card-image src="https://firebasestorage.googleapis.com/v0/b/cwd-breeding.appspot.com/o/logos%2FCWDbreeding-Logo-Orange.png?alt=media&token=fba5f3ae-d67e-4142-91ed-7594cbc098c3" alt="CWD Breeding Logo">
 
-    <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
-  
-      <!-- Email Input -->
-      <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" required type="email">
-        <mat-error *ngIf="signInForm.controls.email.invalid">Please enter a valid email</mat-error>
-      </mat-form-field>
-  
-      <!-- Password Input -->
-      <mat-form-field appearance="outline">
-        <mat-label>Password</mat-label>
-        <input matInput formControlName="password" required type="password">
-        <mat-error *ngIf="signInForm.controls.password.invalid">
-          Password must be at least 6 characters
-        </mat-error>
-      </mat-form-field>
-  
-      <!-- Submit Button -->
-      <button mat-raised-button color="primary" type="submit" [disabled]="signInForm.invalid">
-        Sign In
-      </button>
-  
-      <!-- Google Sign-In Button -->
-      <div *ngIf="showGoogleSignIn" class="divider">
-        <span>OR</span>
-        <button mat-stroked-button color="warn" class="google-button" (click)="onGoogleSignIn()">
-            <div class="google-btn-label-container">
-                <img *ngIf="googleIconUrl"  [src]="googleIconUrl"  alt="Google Icon">
-                <p>Sign in with Google</p>
-            </div>
-        </button>
+          <mat-card-content>
+            <p>If you don’t have an account yet, registering is easy and quick. Just click the button below to get started!</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-flat-button color="accent">Register Now</button>
+          </mat-card-actions>
+        </mat-card>
       </div>
-    </form>
+    </div>
+      
+
+    <div class="right-container">
+
+      <h1 class="header-title">Sign In</h1>
+
+      <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+    
+        <!-- Email Input -->
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" required type="email">
+          <mat-error *ngIf="signInForm.controls.email.invalid">Please enter a valid email</mat-error>
+        </mat-form-field>
+    
+        <!-- Password Input -->
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" required type="password">
+          <mat-error *ngIf="signInForm.controls.password.invalid">
+            Password must be at least 6 characters
+          </mat-error>
+        </mat-form-field>
+    
+        <!-- Submit Button -->
+        <button mat-flat-button color="primary" type="submit" [disabled]="signInForm.invalid">
+          Sign In
+        </button>
+    
+        <!-- Google Sign-In Button -->
+        <div *ngIf="showGoogleSignIn">
+          <button mat-stroked-button color="warn" class="google-button" (click)="onGoogleSignIn()">
+              <div class="google-btn-label-container">
+                  <img *ngIf="googleIconUrl"  [src]="googleIconUrl"  alt="Google Icon">
+                  <p>Sign in with Google</p>
+              </div>
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
   

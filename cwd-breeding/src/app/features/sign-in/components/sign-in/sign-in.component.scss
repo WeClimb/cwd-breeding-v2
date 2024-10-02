@@ -1,41 +1,120 @@
 .sign-in-container {
-    max-width: 400px;
-    margin: 0 auto;
-    margin-top: 100px;
-    margin-bottom: 100px;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  .left-container, .right-container {
+    width: 50%;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
 
-  mat-form-field {
-    width: 100%;
-    margin-bottom: 20px;
-    margin-top: 20px;
-  }
-  
-  button {
-    width: 100%;
-    margin-top: 10px;
-  }
-  
-  .divider {
+  .left-container {
     text-align: center;
-    margin: 20px 0;
-    font-weight: bold;
-    color: #777;
-  }
-  
-  .google-button {
+    background: url("https://firebasestorage.googleapis.com/v0/b/cwd-breeding.appspot.com/o/logos%2Fanirudh-YQYacLW8o2U-unsplash.jpg?alt=media&token=b9f6b29a-8d4c-42a1-90b3-211331032270");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 10px;
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 8px;
+    justify-content: center;
+
+    .logo {
+      max-width: 200px;
+      margin: 0 auto;
+    }
+    
+    .register-info {
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+
+      mat-card {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        opacity: 0.9;
+
+        mat-card-title {
+          font-size: 1.5rem;
+          margin-bottom: 10px;
+        }
+
+        mat-card-content {
+          font-size: 1rem;
+          margin-bottom: 20px;
+        }
+
+        mat-card-actions {
+          display: flex;
+          justify-content: center;
+
+          button {
+            width: 100%;
+          }
+        }
+      }
+    }
   }
 
-  .google-btn-label-container {
-    display: flex; 
-    justify-content: space-around; 
-    width: 200px;    
+  .right-container {
+    text-align: center;
+    
+    mat-form-field {
+      width: 100%;
+      margin-bottom: 20px;
+      margin-top: 20px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 10px;
+    }
+    
+    .google-btn-label-container {
+      display: flex;
+      justify-content: space-around;
+      width: 200px;
+    }
+  }
+
+  /* Mobile Styles */
+  @media (max-width: 768px) {
+    flex-direction: column;  // Stack containers vertically on mobile
+
+    .left-container, .right-container {
+      width: 100%;  // Full width on mobile
+      padding: 0px;  // Reduce padding on smaller screens
+    }
+    
+    .left-container {
+      min-height: 200px;  // Ensure it has enough height to show the background image
+
+      .register-info {
+        mat-card {
+          max-width: 100%;
+        }
+      }
+    }
+
+    .right-container {
+      padding-bottom: 20px;
+      text-align: center;
+      button {
+        width: 90%;  // Ensure buttons are full width
+      }
+
+      mat-form-field {
+        width: 90%;  // Ensure form fields are full width
+      }
+    }
   }
 }
-  

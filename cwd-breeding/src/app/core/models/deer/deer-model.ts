@@ -3,6 +3,7 @@ import { BaseDataModel } from "../base-model";
 import { DenialModel } from "./denial-model";
 import { DeerImage } from "./deer-image";
 import { SubscriptionModel } from "./subscription-model";
+import { LineageModel } from "./lineage-model";
 
 export type DeerImages = [] | [DeerImage] | [DeerImage, DeerImage] | [DeerImage, DeerImage, DeerImage];
 

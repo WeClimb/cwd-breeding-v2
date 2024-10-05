@@ -10,7 +10,7 @@
           Resend Email
         </button>
         
-        <button (click)="proceedToSite()"mat-flat-button color="warn">
+        <button *ngIf="showProceedToSite" (click)="proceedToSite()"mat-flat-button color="warn">
             Proceed to Site
         </button>
       </div>

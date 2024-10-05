@@ -10,6 +10,7 @@ import { SignInModel } from '../../models/sign-in-model';
 import { SignInFormModel } from '../../models/sign-in-form-model';
 import { MatDividerModule } from '@angular/material/divider';
 import {MatCardModule} from '@angular/material/card';
+import { RouterLink } from '@angular/router';
 
 
 @Component({
@@ -24,6 +25,7 @@ import {MatCardModule} from '@angular/material/card';
     ReactiveFormsModule,
     MatDividerModule,
     MatCardModule,
+    RouterLink
   ],
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss'],

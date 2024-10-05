@@ -1,14 +1,4 @@
-import {
-  Auth,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup,
-  fetchSignInMethodsForEmail,
-  sendEmailVerification,
-  User,
-  UserCredential,
-} from '@angular/fire/auth';
+import { Auth, signInWithEmailAndPassword,createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, fetchSignInMethodsForEmail, sendEmailVerification, User, UserCredential } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { map, Observable, of } from 'rxjs';
 import { UserProfile } from '../models/user/user-profile';
@@ -63,7 +53,6 @@ export class AuthService {
       });
   }
 
-  // Google sign-up/login with account exists handling and email verification
   signUpWithGoogle(): Promise<void> {
     const provider = new GoogleAuthProvider();
     
@@ -113,7 +102,6 @@ export class AuthService {
       });
   }
 
-  // Log In with Email and Password and check if the email is verified
   login(email: string, password: string): Promise<void> {
     return signInWithEmailAndPassword(this.auth, email, password)
       .then((userCredential: UserCredential) => {
@@ -131,7 +119,6 @@ export class AuthService {
       });
   }
 
-  // Resend email verification
   resendEmailVerification(): Promise<void> {
     const user = this.auth.currentUser;
     if (user && !user.emailVerified) {
@@ -147,7 +134,15 @@ export class AuthService {
     }
   }
 
-  // Log Out
+  checkEmailVerification(): boolean {
+    const user = this.auth.currentUser;
+    if (user) {
+      return user.emailVerified;
+    } else {
+      return false;
+    }
+  }
+
   logout(): Promise<boolean | void> {
     return this.auth.signOut().then(() => this.router.navigate(['/login']));
   }
@@ -156,12 +151,10 @@ export class AuthService {
     return this.userProfileService.createUserProfile(userProfile);
   }
 
-  // Get current user as an observable
   get currentUser(): Observable<User | null> {
     return of(this.auth.currentUser);
   }
 
-  // Check if the user is authenticated
   isAuthenticated(): Observable<boolean> {
     return this.currentUser.pipe(map((user: User | null) => !!user));
   }

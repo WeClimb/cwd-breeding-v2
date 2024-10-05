@@ -1,0 +1,29 @@
+.confirmation-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .confirmation-card {
+    padding: 40px;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .confirmation-title {
+    font-size: 2rem;
+    font-weight: 300;
+    margin-bottom: 10px;
+  }
+  
+  .confirmation-subtitle {
+    font-size: 1rem;
+    color: #666666;
+    margin-bottom: 20px;
+  }
+  
+  button {
+    width: 50%;
+  }
+  

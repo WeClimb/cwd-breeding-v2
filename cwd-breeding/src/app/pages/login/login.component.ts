@@ -3,6 +3,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { SignInModel } from '../../features/sign-in/models/sign-in-model';
 import { SignInComponent } from '../../features/sign-in/components/sign-in/sign-in.component';
 import { FooterComponent } from "../../core/components/footer/footer.component";
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,13 +16,16 @@ import { FooterComponent } from "../../core/components/footer/footer.component";
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   // Handle form submission for email/password sign-in
   handleFormSubmit(signInData: SignInModel) {
     this.authService.login(signInData.email, signInData.password)
       .then(() => {
-        console.log('User logged in successfully');
+        this.router.navigate(['/home']);
       })
       .catch((error) => {
         console.error('Login error:', error);
@@ -32,7 +36,7 @@ export class LoginComponent {
   handleGoogleSignIn() {
     this.authService.signUpWithGoogle()
       .then(() => {
-        console.log('Signed in with Google successfully');
+        this.router.navigate(['/home']);
       })
       .catch((error) => {
         console.error('Google sign-in error:', error);

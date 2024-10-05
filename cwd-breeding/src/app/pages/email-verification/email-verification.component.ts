@@ -1,19 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, Input, input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { SnackbarService } from '../../core/services/snackbar-service.service';
 import { MatButtonModule } from '@angular/material/button';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-email-verification',
   standalone: true,
   imports: [
-    MatButtonModule
+    MatButtonModule,
+    NgIf
   ],
   templateUrl: './email-verification.component.html',
   styleUrls: ['./email-verification.component.scss']
 })
 export class EmailVerificationComponent {
+  @Input() showProceedToSite = false;
 
   constructor(
     private authService: AuthService,

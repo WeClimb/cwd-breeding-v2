@@ -5,13 +5,15 @@ import { UserCreateComponent } from "../../features/register-user/components/use
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { Observable, map } from 'rxjs';
-import {MatStepperModule, StepperOrientation} from '@angular/material/stepper';
+import { MatStepperModule } from '@angular/material/stepper';
 import { FooterComponent } from "../../core/components/footer/footer.component";
 import { MatDividerModule } from '@angular/material/divider';
+import { EmailVerificationComponent } from "../email-verification/email-verification.component";
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { RanchCreateComponent } from '../../features/ranch-creation/components/ranch-create/ranch-create.component';
+import { ConfirmationComponent } from "../../shared/components/confirmation/confirmation.component";
 
 @Component({
   selector: 'app-register',
@@ -26,48 +28,42 @@ import { MatDividerModule } from '@angular/material/divider';
     MatButtonModule,
     AsyncPipe,
     FooterComponent,
-    MatDividerModule
+    MatDividerModule,
+    EmailVerificationComponent,
+    MatProgressBarModule,
+    NgIf,
+    RanchCreateComponent,
+    ConfirmationComponent
 ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
-export class RegisterComponent {
+export class RegisterComponent  {
   private _formBuilder = inject(FormBuilder);
 
-  firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
-  });
-  secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
-  });
-  thirdFormGroup = this._formBuilder.group({
-    thirdCtrl: ['', Validators.required],
-  });
-
-  stepperOrientation!: Observable<StepperOrientation>;
+  loading = false;
+  registerCompleted = false;
 
   constructor(private authService: AuthService) {
-    const breakpointObserver = inject(BreakpointObserver);
-
-    this.stepperOrientation = breakpointObserver
-      .observe('(min-width: 800px)')
-      .pipe(map(({matches}) => (matches ? 'horizontal' : 'vertical')));
   }
 
   handleFormSubmit(userData: UserCreateModel) {
+    this.loading = true;
     this.authService.signUp(userData).then(() => {
-      console.log('User registered and profile saved successfully');
+      this.registerCompleted = true;
+      this.loading = false;
     }).catch((error) => {
       console.error('Error during registration or profile save:', error);
     });
   }
 
   handleGoogleSignIn() {
+    this.loading = true;
     this.authService.signUpWithGoogle().then(() => {
-      console.log('Signed up with Google successfully');
+      this.registerCompleted = true;
+      this.loading = false;
     }).catch((error) => {
       console.error('Error during Google sign-up:', error);
     });
-  }
-  
+  } 
 }

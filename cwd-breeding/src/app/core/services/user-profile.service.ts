@@ -3,6 +3,7 @@ import { UserProfile } from '../models/user/user-profile';
 import { doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
 import { from, map, Observable, of, switchMap } from 'rxjs';
 import { Auth, authState, User } from '@angular/fire/auth';
+import { Roles } from '../constants/roles.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,14 @@ export class UserProfileService {
         } else {
           return of(null);  // No user is logged in
         }
+      })
+    );
+  }
+
+  getUserRole(): Observable<Roles> {
+    return this.getUserProfile().pipe(
+      map((userProfile: UserProfile | null) => {
+        return userProfile?.role || Roles.USER;
       })
     );
   }

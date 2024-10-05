@@ -55,52 +55,55 @@ export class AuthService {
 
   signUpWithGoogle(): Promise<void> {
     const provider = new GoogleAuthProvider();
-    
+    return signInWithPopup(this.auth, provider)
+      .then(async (result: UserCredential) => {
+        const user = result.user;
+  
+        // Check if user profile already exists
+        const userDoc = this.userProfileService.getUserProfile().subscribe((userProfile: UserProfile | null) => {
+          if (userProfile) {
+            console.log('User profile already exists. Skipping profile creation.');
+            return;
+          } else {
+            const userProfile: UserProfile = {
+              name: user.displayName || 'User',
+              email: user.email!,
+              phoneNumber: user.phoneNumber,
+              role: Roles.USER,
+              uid: user.uid,
+              id: user.uid,
+              status: Status.ACTIVE,
+              createdAt: new Date(),
+              updatedAt: new Date(),
+            };
+
+            this.createUserProfile(userProfile).then(() => {
+              if (!user.emailVerified) {
+                return sendEmailVerification(user);
+              } else {
+                return Promise.resolve();
+              }
+          });
+        }
+      });
+    });
+  }
+
+  signInWithGoogle(): Promise<void> {
+    const provider = new GoogleAuthProvider();
+  
     return signInWithPopup(this.auth, provider)
       .then((result: UserCredential) => {
         const user = result.user;
-        const userProfile: UserProfile = {
-          name: user.displayName || 'User',
-          email: user.email!,
-          phoneNumber: user.phoneNumber,
-          role: Roles.USER,
-          uid: user.uid,
-          id: user.uid,
-          status: Status.ACTIVE,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        };
-        // Create user profile and send email verification if not verified
-        return this.createUserProfile(userProfile)
-          .then(() => {
-            if (!user.emailVerified) {
-              return sendEmailVerification(user);
-            } else {
-              return Promise.resolve();
-            }
-          });
+        console.log('User signed in with Google:', user);
+        return Promise.resolve();
       })
-      .catch(async (error) => {
-        if (error.code === 'auth/account-exists-with-different-credential') {
-          const email = error.email;
-          const pendingCredential = error.credential;
-
-          // Get sign-in methods associated with the email
-          const signInMethods = await fetchSignInMethodsForEmail(this.auth, email);
-
-          // If the user has an email/password account, suggest they log in with email/password
-          if (signInMethods.includes('password')) {
-            console.error(`An account already exists with this email. Please sign in with email and password, and then link your Google account.`);
-          } else {
-            console.error('Google sign-in error:', error);
-            throw error;
-          }
-        } else {
-          console.error('Error during Google sign-in:', error);
-          throw error;
-        }
+      .catch(error => {
+        console.error('Error during Google sign-in:', error);
+        throw error;
       });
   }
+  
 
   login(email: string, password: string): Promise<void> {
     return signInWithEmailAndPassword(this.auth, email, password)

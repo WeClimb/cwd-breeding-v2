@@ -10,18 +10,22 @@ import { UserProfileService } from '../services/user-profile.service';
   providedIn: 'root',
 })
 export class RoleGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router, private userProfileService: UserProfileService) {}
+ 
+  constructor(
+    private authService: AuthService, 
+    private router: Router, 
+    private userProfileService: UserProfileService
+  ) {}
 
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    const expectedRole = route.data['role'];  // Get the required role from the route data
+    const expectedRole = route.data['role']; 
 
     return this.userProfileService.getUserProfile().pipe(
       map((userProfile: UserProfile | null) => {
         if (userProfile && userProfile.role === expectedRole) {
-          return true;  // User has the correct role, allow access
+          return true; 
         } else {
-          // User does not have the correct role, redirect to an unauthorized page or home
-          this.router.navigate(['/sign-in']);
+          this.router.navigate(['/home']);
           return false;
         }
       })

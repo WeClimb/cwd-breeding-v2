@@ -6,6 +6,8 @@ import { FooterComponent } from "../../core/components/footer/footer.component";
 import { Router } from '@angular/router';
 import { Roles } from '../../core/constants/roles.enum';
 import { UserProfileService } from '../../core/services/user-profile.service';
+import { EmailVerificationDialogComponent } from '../../features/email-verification-alert/email-verification-alert.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -21,7 +23,8 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private userProfileService: UserProfileService
+    private userProfileService: UserProfileService,
+    private dialog: MatDialog
   ) {}
 
   // Handle form submission for email/password sign-in
@@ -51,7 +54,8 @@ export class LoginComponent {
   }
 
   private navigateBasedOnRole(role: Roles): void {
-    console.log('Navigating based on role:', role);
+    const isEmailVerified: boolean = this.authService.checkEmailVerification();
+
     switch (role) {
       case Roles.ADMIN:
         this.router.navigate(['/admin-dashboard']);
@@ -59,5 +63,15 @@ export class LoginComponent {
       default:
         this.router.navigate(['/home']);
     }
+
+    if (!isEmailVerified) {
+      this.openEmailVerificationDialog();
+    }
+  }
+
+  openEmailVerificationDialog(): void {
+    this.dialog.open(EmailVerificationDialogComponent, {
+      width: '400px',
+    });
   }
 }

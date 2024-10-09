@@ -4,4 +4,5 @@ export interface requestCreateProduct {
     centPrice: number;
     deerId: string;
     ranchId: string;
+    active: boolean;
 }

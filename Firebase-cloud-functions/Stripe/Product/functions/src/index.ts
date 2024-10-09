@@ -1,39 +1,45 @@
 import {onRequest} from "firebase-functions/v2/https";
 import * as logger from "firebase-functions/logger";
-import { requestCreateProduct } from "./models/request-create-product";
+import {requestCreateProduct} from "./models/request-create-product";
+import {defineSecret} from "firebase-functions/params";
 
-export const createProduct = onRequest(async (request, response) => {
-  logger.info("Starting createProduct firebase cloud function", {structuredData: true});
+const stripeAPIKey = defineSecret("STRIPEAPIKEY");
 
-  const body: requestCreateProduct = request.body;
+export const createProduct = onRequest({secrets: [stripeAPIKey]},
+  async (request, response) => {
+    logger.info("Starting createProduct firebase cloud function",
+      {structuredData: true}
+    );
 
-  // REMOVE THIS KEY, PUT IN A SETTINGS FILE
-  const stripe = require('stripe')('sk_test_51MXs4ABKPh6RnjBZlXPNd7dztzgJAw8LjIQaWhXqdid6sWEc2ICcqZPoRODXYJhSx3zpY2223px891pGFOuuCNUU00BIVhUitz');
+    const body: requestCreateProduct = request.body;
 
-  logger.info("Attempting create product name: " + body.name)
+    const stripe = require("stripe")(stripeAPIKey.value());
 
-  // TEST THE ERROR HANDLING OF THIS
-  try {
-    const product = await stripe.products.create({
-      name: body.name,
-      description: body.description,
-      default_price_data: {
-        currency: 'USD',
-        unit_amount: body.centPrice
-      },
-      metadata: {
-        deerId: body.deerId,
-        ranchId: body.ranchId
-      }
-    });
+    logger.info("Attempting create product name: " + body.name);
 
-    logger.info("Successful creation of product name: " + body.name)
-  
-    response.send(product)
-  } catch(ex) {
-    logger.info("Failed to create product name: " + body.name)
-    logger.info("Exception: " + ex)
+    try {
+      const product = await stripe.products.create({
+        name: body.name,
+        active: body.active,
+        description: body.description,
+        default_price_data: {
+          currency: "USD",
+          unit_amount: body.centPrice,
+        },
+        metadata: {
+          deerId: body.deerId,
+          ranchId: body.ranchId,
+        },
+      });
 
-    response.sendStatus(500);
+      logger.info("Successful creation of product name: " + body.name);
+
+      response.send(product);
+    } catch (ex) {
+      logger.info("Failed to create product name: " + body.name);
+      logger.info("Exception: " + ex);
+
+      response.sendStatus(500);
+    }
   }
-});
+);

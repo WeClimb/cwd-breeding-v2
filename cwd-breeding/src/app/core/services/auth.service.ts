@@ -111,9 +111,6 @@ export class AuthService {
         const user = userCredential.user;
         if (user.emailVerified) {
           console.log('User logged in successfully');
-        } else {
-          console.warn('Email not verified. Please check your inbox and verify your email.');
-          this.router.navigate(['/email-verification']);
         }
       })
       .catch((error) => {

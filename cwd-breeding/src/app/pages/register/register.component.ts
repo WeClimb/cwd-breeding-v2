@@ -10,7 +10,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
 import { FooterComponent } from "../../core/components/footer/footer.component";
 import { MatDividerModule } from '@angular/material/divider';
-import { EmailVerificationComponent } from "../email-verification/email-verification.component";
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { RanchCreateComponent } from '../../features/ranch-creation/components/ranch-create/ranch-create.component';
 import { ConfirmationComponent } from "../../shared/components/confirmation/confirmation.component";
@@ -29,7 +28,6 @@ import { ConfirmationComponent } from "../../shared/components/confirmation/conf
     AsyncPipe,
     FooterComponent,
     MatDividerModule,
-    EmailVerificationComponent,
     MatProgressBarModule,
     NgIf,
     RanchCreateComponent,

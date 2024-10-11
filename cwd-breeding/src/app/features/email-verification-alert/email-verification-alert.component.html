@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>Email Verification Required</h2>
+<mat-dialog-content>
+  <p>Your email has not been verified yet. Please verify your email to continue using the app as some functionality may be disabled.</p>
+  <p>If you haven't received the email, you can resend the verification email.</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="resendVerificationEmail()">Resend Verification Email</button>
+  <button mat-button (click)="closeDialog()">Close</button>
+</mat-dialog-actions>

@@ -43,7 +43,7 @@ async (event) => {
   logger.info("Attempting create product name: " + body.name);
 
   try {
-    await stripe.products.create({
+    const product = await stripe.products.create({
       name: body.name,
       active: body.active,
       description: body.description,
@@ -61,8 +61,20 @@ async (event) => {
     });
 
     logger.info("Successful creation of product name: " + body.name);
+
+    logger.info("Attempting Update of Deer document with Product Id");
+
+    // Update the Firestore document with the stripeProductId
+    return await snapshot.ref.set(
+      {
+        stripeProductId: product.id,
+      },
+      {merge: true},
+    );
   } catch (ex) {
     logger.info("Failed to create product name: " + body.name);
     logger.info("Exception: " + ex);
+
+    return;
   }
 });

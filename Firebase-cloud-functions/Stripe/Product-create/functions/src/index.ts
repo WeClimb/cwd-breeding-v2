@@ -5,6 +5,10 @@ import {onDocumentCreated} from "firebase-functions/v2/firestore";
 
 const stripeAPIKey = defineSecret("STRIPEAPIKEY");
 
+// Make the update version of this
+// Make the Stripe Checkout session function HTTP
+// Work on the process of mantaining and deleting a subscription
+
 export const createProduct = onDocumentCreated({
   document: "deer/{deerId}",
   secrets: [stripeAPIKey],
@@ -46,6 +50,9 @@ async (event) => {
       default_price_data: {
         currency: "USD",
         unit_amount: body.centPrice,
+        recurring: {
+          interval: "year",
+        },
       },
       metadata: {
         deerId: body.deerId,

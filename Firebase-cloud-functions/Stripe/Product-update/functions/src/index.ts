@@ -44,26 +44,29 @@ async (event) => {
   logger.info("Attempting update product name: " + body.name);
 
   try {
-    await stripe.products.update({
-      name: body.name,
-      active: body.active,
-      description: body.description,
-      default_price_data: {
-        currency: "USD",
-        unit_amount: body.centPrice,
-        recurring: {
-          interval: "year",
-        },
-      },
-      metadata: {
-        deerId: body.deerId,
-        ranchId: body.ranchId,
-      },
-    });
+    // For now we cannot update the price
+    // You cannot change the price once it is created
+    // To change the price of a product you would have to
+    // create a new price object,
+    // delete the old one,
+    // and replace it with the new one
 
-    logger.info("Successful creation of product name: " + body.name);
+    await stripe.products.update(
+      body.stripeProductId,
+      {
+        name: body.name,
+        active: body.active,
+        description: body.description,
+        metadata: {
+          deerId: body.deerId,
+          ranchId: body.ranchId,
+        },
+      }
+    );
+
+    logger.info("Successful update of product name: " + body.name);
   } catch (ex) {
-    logger.info("Failed to create product name: " + body.name);
+    logger.info("Failed to update product name: " + body.name);
     logger.info("Exception: " + ex);
   }
 });
